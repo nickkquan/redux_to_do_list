@@ -7,7 +7,29 @@ class ViewItem extends Component {
 	componentDidMount() {
 		this.props.getOneItem(this.props.match.params.id);
 	}
+
 	render() {
+		let unixDate = new Date(this.props.item.created * 1000);
+		let months = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December"
+		];
+		let year = unixDate.getFullYear();
+		let month = months[unixDate.getMonth()];
+		let day = unixDate.getDate();
+		let date = month + " " + day + " " + year;
+
+		let status = this.props.complete ? "text-success" : "text-danger";
 		console.log("ViewItem Props: ", this.props);
 		return (
 			<div className="text-center">
@@ -17,8 +39,14 @@ class ViewItem extends Component {
 						Go Back
 					</Link>
 				</div>
-				<p>ID: {this.props.match.params.id}</p>
+
 				<h3>Title: {this.props.item.title}</h3>
+				<p>Description of to-do item: {this.props.item.details}</p>
+				<p>Item created:{date}</p>
+				<p className={status}>Completed</p>
+				<p>ID: {this.props.match.params.id}</p>
+				<button>Toggle Complete</button>
+				<button>Delete Item</button>
 			</div>
 		);
 	}
