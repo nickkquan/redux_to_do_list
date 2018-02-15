@@ -19,6 +19,8 @@ class ViewItem extends Component {
 				</div>
 				<p>ID: {this.props.match.params.id}</p>
 				<h3>Title: {this.props.item.title}</h3>
+				<p>Description of to-do item: {this.props.item.details}</p>
+				<p>Item created: {this.props.item.created}</p>
 			</div>
 		);
 	}
