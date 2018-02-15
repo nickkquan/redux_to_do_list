@@ -16,9 +16,9 @@ class AddForm extends Component {
 	}
 
 	handleAddItem(values) {
-		this.props.addItem(values).then(()=>{
-            this.props.history.push("/")
-        });
+		this.props.addItem(values).then(() => {
+			this.props.history.push("/");
+		});
 	}
 
 	render() {
