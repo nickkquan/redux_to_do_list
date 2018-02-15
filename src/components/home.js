@@ -8,6 +8,7 @@ class Home extends Component {
 		this.props.getAllTodos();
 	}
 	render() {
+
 		const listItems = this.props.todoList.map((item, index) => {
 			return (
 				<li className="list-group-item" key={index}>

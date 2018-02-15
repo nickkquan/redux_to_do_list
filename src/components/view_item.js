@@ -1,36 +1,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getOneItem } from "../actions";
+import { getOneItem, toggleComplete, deleteItem } from "../actions";
 
 class ViewItem extends Component {
 	componentDidMount() {
 		this.props.getOneItem(this.props.match.params.id);
 	}
 
-	render() {
-		let unixDate = new Date(this.props.item.created * 1000);
-		let months = [
-			"January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December"
-		];
-		let year = unixDate.getFullYear();
-		let month = months[unixDate.getMonth()];
-		let day = unixDate.getDate();
-		let date = month + " " + day + " " + year;
+	handleDeleteItem(id) {
+		this.props.deleteItem(id).then(() => {
+			this.props.history.push("/");
+		});
+	}
 
-		let status = this.props.complete ? "text-success" : "text-danger";
+	handleCompleteItem(id) {
+		this.props.toggleComplete(id)
+	}
+
+	render() {
+		let unixDate = new Date(parseInt(this.props.item.created));
+		let date = unixDate.toLocaleString();
+
+		let status = this.props.item.complete ? "Yes" : "No";
+
 		console.log("ViewItem Props: ", this.props);
+
 		return (
 			<div className="text-center">
 				<h1>View Item Details</h1>
@@ -41,12 +36,26 @@ class ViewItem extends Component {
 				</div>
 
 				<h3>Title: {this.props.item.title}</h3>
-				<p>Description of to-do item: {this.props.item.details}</p>
-				<p>Item created:{date}</p>
-				<p className={status}>Completed</p>
+				<p>Description: {this.props.item.details}</p>
+				<p>Item created: {date}</p>
+				<p>Completed: {status}</p>
 				<p>ID: {this.props.match.params.id}</p>
-				<button>Toggle Complete</button>
-				<button>Delete Item</button>
+				<button
+					onClick={
+						() => this.handleCompleteItem(this.props.item._id)
+						// toggleComplete(this.props.match.params.id)
+					}
+					className="btn btn-outline-success mr-3"
+				>
+					Toggle Complete
+				</button>
+				<button
+					type="button"
+					onClick={() => this.handleDeleteItem(this.props.item._id)}
+					className="btn btn-outline-danger"
+				>
+					Delete Item
+				</button>
 			</div>
 		);
 	}
@@ -58,4 +67,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, { getOneItem })(ViewItem);
+export default connect(mapStateToProps, { getOneItem, toggleComplete, deleteItem })(ViewItem);
