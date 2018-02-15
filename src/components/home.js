@@ -7,15 +7,29 @@ class Home extends Component {
 		this.props.getAllTodos();
 	}
 	render() {
+		const listItems = this.props.todoList.map((item, index) => {
+			return (
+				<li className="list-group-item" key={index}>
+					{item.title}
+				</li>
+			);
+		});
 		return (
 			<div>
 				<div className="text-center">
 					<h1>To Do List</h1>
 					<p>Now with Redux!</p>
 				</div>
+				<ul className="list-group">{listItems}</ul>
 			</div>
 		);
 	}
 }
 
-export default connect(null, { getAllTodos })(Home);
+function mapStateToProps(state) {
+	return {
+		todoList: state.todo.all
+	};
+}
+
+export default connect(mapStateToProps, { getAllTodos })(Home);
