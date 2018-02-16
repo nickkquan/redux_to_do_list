@@ -15,7 +15,7 @@ class ViewItem extends Component {
 	}
 
 	handleCompleteItem(id) {
-		this.props.toggleComplete(id)
+		this.props.toggleComplete(id);
 	}
 
 	render() {
@@ -35,27 +35,30 @@ class ViewItem extends Component {
 					</Link>
 				</div>
 
-				<h3>Title: {this.props.item.title}</h3>
-				<p>Description: {this.props.item.details}</p>
-				<p>Item created: {date}</p>
-				<p>Completed: {status}</p>
-				<p>ID: {this.props.match.params.id}</p>
-				<button
-					onClick={
-						() => this.handleCompleteItem(this.props.item._id)
-						// toggleComplete(this.props.match.params.id)
-					}
-					className="btn btn-outline-success mr-3"
-				>
-					Toggle Complete
-				</button>
-				<button
-					type="button"
-					onClick={() => this.handleDeleteItem(this.props.item._id)}
-					className="btn btn-outline-danger"
-				>
-					Delete Item
-				</button>
+				<div className="row justify-content-center">
+					<div className="card">
+						<div className="card-body">
+							<h3>Title: {this.props.item.title}</h3>
+							<p>Description: {this.props.item.details}</p>
+							<p>Item created: {date}</p>
+							<p>Completed: {status}</p>
+							<p>ID: {this.props.match.params.id}</p>
+							<button
+								onClick={() => this.handleCompleteItem(this.props.item._id)}
+								className="btn btn-outline-success mr-3"
+							>
+								Toggle Complete
+							</button>
+							<button
+								type="button"
+								onClick={() => this.handleDeleteItem(this.props.item._id)}
+								className="btn btn-outline-danger"
+							>
+								Delete Item
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		);
 	}
